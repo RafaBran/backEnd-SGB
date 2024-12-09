@@ -25,7 +25,8 @@ public class AutorController {
     }
 
     @PutMapping("/{id}")
-    public AutorDTO updateAutor(@PathVariable Long id, @RequestBody AutorDTO autorDTO) { return autorService.updateAutor(id, autorDTO);
+    public AutorDTO updateAutor(@PathVariable Long id, @RequestBody AutorDTO autorDTO) {
+        return autorService.updateAutor(id, autorDTO);
     }
 
     @DeleteMapping("/{id}")

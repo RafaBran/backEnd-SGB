@@ -1,3 +1,5 @@
+//é responsável por gerenciar a comunicação entre a interface do usuário (View) e a lógica de negócios (Model)
+
 package com.brandao.sgb2.controller;
 
 import com.brandao.sgb2.dto.LivroDTO;
@@ -13,6 +15,8 @@ public class LivroController {
 
    @Autowired
    private LivroService livroService;
+
+   //Mapeamento de Endpoints
 
    @GetMapping
    public List<LivroDTO>getAllLivros(){
