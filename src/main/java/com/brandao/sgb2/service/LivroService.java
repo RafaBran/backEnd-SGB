@@ -1,3 +1,6 @@
+//são responsáveis por encapsular a lógica de negócios
+//atuam como intermediários entre os Controladores (Controllers) e os Repositórios (Repositories).
+
 package com.brandao.sgb2.service;
 
 import com.brandao.sgb2.dto.LivroDTO;
@@ -32,7 +35,6 @@ public class LivroService {
         return convertToDto(savedLivro);
     }
 
-    //ADIÇÃO SEGUNDA ETAPA
     public LivroDTO updateLivro(Long id, LivroDTO livroDTO) {
         Livro livro = livroRepository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
         livro.setTitulo(livroDTO.titulo());
@@ -45,7 +47,6 @@ public class LivroService {
         return convertToDto(updatedLivro);
     }
 
-    //ADIÇÃO SEGUNDA ETAPA
     public void deleteLivro(Long id) {
         livroRepository.deleteById(id);
     }
