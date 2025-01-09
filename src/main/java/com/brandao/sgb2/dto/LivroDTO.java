@@ -10,7 +10,9 @@ public record LivroDTO(
         String titulo,
         String isbn,
         Long autorId,
-        Long categoriaId
+        String autorNome,
+        Long categoriaId,
+        String categoriaNome
 ) {}
 
 

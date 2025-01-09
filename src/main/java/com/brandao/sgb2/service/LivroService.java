@@ -36,13 +36,19 @@ public class LivroService {
     }
 
     public LivroDTO updateLivro(Long id, LivroDTO livroDTO) {
-        Livro livro = livroRepository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+        Livro livro = livroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
         livro.setTitulo(livroDTO.titulo());
         livro.setIsbn(livroDTO.isbn());
-        Autor autor = autorRepository.findById(livroDTO.autorId()).orElseThrow(() -> new RuntimeException("Autor não encontrado"));
-        Categoria categoria = categoriaRepository.findById(livroDTO.categoriaId()).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
+        Autor autor = autorRepository.findById(livroDTO.autorId())
+                .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
+        Categoria categoria = categoriaRepository.findById(livroDTO.categoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
         livro.setAutor(autor);
         livro.setCategoria(categoria);
+
         Livro updatedLivro = livroRepository.save(livro);
         return convertToDto(updatedLivro);
     }
@@ -52,12 +58,19 @@ public class LivroService {
     }
 
     private LivroDTO convertToDto(Livro livro) {
+        Long autorId = livro.getAutor() != null ? livro.getAutor().getId() : null;
+        String autorNome = livro.getAutor() != null ? livro.getAutor().getNome() : "Autor não definido";
+        Long categoriaId = livro.getCategoria() != null ? livro.getCategoria().getId() : null;
+        String categoriaNome = livro.getCategoria() != null ? livro.getCategoria().getNome() : "Categoria não definida";
+
         return new LivroDTO(
                 livro.getId(),
                 livro.getTitulo(),
                 livro.getIsbn(),
-                livro.getAutor().getId(),
-                livro.getCategoria().getId()
+                autorId,
+                autorNome,
+                categoriaId,
+                categoriaNome
         );
     }
 
@@ -66,12 +79,12 @@ public class LivroService {
         livro.setId(livroDTO.id());
         livro.setTitulo(livroDTO.titulo());
         livro.setIsbn(livroDTO.isbn());
-        //VERIFICAR SE AUTOR E CATEGORIA É A CLASSE OU A DTO
-        Autor autor = autorRepository.findById(livroDTO.autorId()).orElseThrow(() -> new RuntimeException("Autor " +
-                "não encontrado"));
-        Categoria categoria =
-                categoriaRepository.findById(livroDTO.categoriaId()).orElseThrow(() -> new RuntimeException(
-                        "Categoria não encontrada"));
+
+        Autor autor = autorRepository.findById(livroDTO.autorId())
+                .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
+        Categoria categoria = categoriaRepository.findById(livroDTO.categoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
         livro.setAutor(autor);
         livro.setCategoria(categoria);
         return livro;
