@@ -12,3 +12,6 @@ public record LivroDTO(
         Long autorId,
         Long categoriaId
 ) {}
+
+
+

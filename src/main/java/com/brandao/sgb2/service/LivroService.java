@@ -67,8 +67,11 @@ public class LivroService {
         livro.setTitulo(livroDTO.titulo());
         livro.setIsbn(livroDTO.isbn());
         //VERIFICAR SE AUTOR E CATEGORIA É A CLASSE OU A DTO
-        Autor autor = autorRepository.findById(livroDTO.autorId()).orElseThrow(() -> new RuntimeException("Autor não encontrado"));
-        Categoria categoria = categoriaRepository.findById(livroDTO.categoriaId()).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        Autor autor = autorRepository.findById(livroDTO.autorId()).orElseThrow(() -> new RuntimeException("Autor " +
+                "não encontrado"));
+        Categoria categoria =
+                categoriaRepository.findById(livroDTO.categoriaId()).orElseThrow(() -> new RuntimeException(
+                        "Categoria não encontrada"));
         livro.setAutor(autor);
         livro.setCategoria(categoria);
         return livro;
